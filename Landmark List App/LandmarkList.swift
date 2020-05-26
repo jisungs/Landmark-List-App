@@ -27,17 +27,21 @@ struct LandmarkList: View {
     var landmarks = CategoriesData
     
     var body: some View {
-        List(){
-            ForEach(CategoriesData){ category in
-                Section(header: Text(category.title)){
-                    ForEach(category.landmarks) { landmark in
-                        LandmarkRow(landmark: landmark)
-                        
-                    }
-                }
-            }
-            
+        NavigationView{
+            List(){
+                       ForEach(CategoriesData){ category in
+                           Section(header: Text(category.title)){
+                               ForEach(category.landmarks) { landmark in
+                                   LandmarkRow(landmark: landmark)
+                                   
+                               }
+                           }
+                       }
+                       
+            }.navigationBarTitle(Text("Landmark"))
         }
+        
+       
     }
 }
 
