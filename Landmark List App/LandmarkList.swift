@@ -8,19 +8,33 @@
 
 import SwiftUI
 
+struct LandmarkRow: View {
+    var landmark:Landmark
+    var body: some View {
+        HStack {
+            Image(landmark.thumbnailName).cornerRadius(8)
+            VStack(alignment: .leading) {
+              Text(landmark.title).bold()
+              Text(landmark.country).foregroundColor(.gray)
+             }
+            Spacer()
+            Image(landmark.flagName)
+        }
+    }
+}
+
 struct LandmarkList: View {
-    var landmarks = landmarksData
+    var landmarks = CategoriesData
     
     var body: some View {
-        List(landmarks){ landmark in
-            HStack {
-                Image(landmark.thumbnailName).cornerRadius(8)
-                VStack(alignment: .leading){
-                    Text(landmark.title).bold()
-                    Text(landmark.country).foregroundColor(.gray)
+        List(){
+            ForEach(CategoriesData){ category in
+                Section(header: Text(category.title)){
+                    ForEach(category.landmarks) { landmark in
+                        LandmarkRow(landmark: landmark)
+                        
+                    }
                 }
-                Spacer()
-                Image(landmark.flagName)
             }
             
         }
@@ -29,6 +43,6 @@ struct LandmarkList: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        LandmarkList(landmarks: landmarksData)
+        LandmarkList(landmarks: CategoriesData)
     }
 }
